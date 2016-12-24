@@ -24,5 +24,5 @@ fn main() {
 
     let mut list = ServerList::new(matches.value_of("config").unwrap().to_string()).unwrap();
 
-    list.run();
+    list.run().unwrap();
 }

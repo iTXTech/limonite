@@ -6,12 +6,12 @@ use std::io;
 use std::convert::From;
 use std::collections::hash_map::HashMap;
 use toml::{Parser, Table, Value};
-use futures::future::{Future, join_all, JoinAll, FutureResult, Map, ok};
+use futures::future::{Future, join_all, ok};
 use tokio_core::reactor::Core;
 
 pub struct ServerList {
     core: Core,
-    configPath: String,
+    config_path: String,
     servers: HashMap<String, Server>,
 }
 
@@ -52,15 +52,15 @@ impl TomlValueConvert for Value {
 }
 
 impl ServerList {
-    pub fn new(configPath: String) -> Result<ServerList, ConfigError> {
-        let mut configText = String::default();
-        File::open(&configPath)?.read_to_string(&mut configText)?;
-        let mut parser = Parser::new(&configText);
+    pub fn new(config_path: String) -> Result<ServerList, ConfigError> {
+        let mut config_text = String::default();
+        File::open(&config_path)?.read_to_string(&mut config_text)?;
+        let mut parser = Parser::new(&config_text);
         let mut config = parser.parse()
             .ok_or(ConfigError { desc: format!("Config parse error: {}", parser.errors[0]) })?;
         let list = ServerList {
             core: Core::new()?,
-            configPath: configPath,
+            config_path: config_path,
             servers: config
             .remove("server")
             .ok_or(ConfigError { desc: "No server section".to_string() })?
@@ -81,13 +81,15 @@ impl ServerList {
         &mut self.servers
     }
 
-    pub fn run(&mut self) {
+    pub fn run(&mut self) -> Result<(), ()> {
         // STUB
         let startup = join_all(vec![ok::<(), ()>(())]).map(|_| ());
         let server_stop = ok::<(), ()>(());
         let shutdown = join_all(vec![ok::<(), ()>(())]).map(|_| ());
-        self.core.run(startup.select(server_stop));
-        self.core.run(shutdown);
+        self.core
+            .run(startup.select(server_stop).map(|(item, _)| item).map_err(|(error, _)| error))?;
+        self.core.run(shutdown)?;
+        Ok(())
     }
 }
 

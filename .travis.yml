@@ -5,6 +5,8 @@ rust:
   - stable
   - beta
   - nightly
+env:
+  - RUSTFLAGS="-C prefer-dynamic"
 
 notifications:
   webhooks:

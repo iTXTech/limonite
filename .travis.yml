@@ -6,7 +6,9 @@ rust:
   - beta
   - nightly
 env:
-  - RUSTFLAGS="-C prefer-dynamic"
+  global:
+    - RUSTFLAGS="-C prefer-dynamic"
+cache: cargo
 
 notifications:
   webhooks:

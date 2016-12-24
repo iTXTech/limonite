@@ -1,0 +1,21 @@
+dist: trusty
+sudo: false
+language: rust
+rust:
+  - stable
+  - beta
+  - nightly
+
+notifications:
+  webhooks:
+    urls:
+      - secure: "LWc5Ky7Kxg7dHZjZ2i5YWqsoRyhwuBhCK4/Ii4wkfyShfPcJJObJVmcf/dYadpXVwF7e3E34LAO4hawdXbsO6yJNR96GKXg
+jMhKmcUjMNtFHAVZRrJ+p8YzXsFTP/Jlm/1JGGn3ip9w8zcXZddMlLdDZzajJwEke5tnRE3VnEoseYBwtkUQ9i8Havt050IiE3HIRZIU8Z
+oF0ICUaonGgv8kL1PZeU3WUngzTJ3Du36s3RYj+Js+xyFzMiK6aA1ibhTYAbINq5PCSUV8FUx8hYPb8Dgf+NhQC1eGjmvBwci3l88ArO3I
+AA0M8SWqn02P9AXEZY573Vz1ZVG23Jdb/qr/yyQL4GVKk0rIzdIrCryARSDbpnHMZPt+TqtcDOLfPGPpq11UNgbVr1Ih0v76iNWbnnq1vt
+oKuOIIKxCegeZg/SoUdYm31OKKAHL075+LG0/yqZHj3Z4lB8jWxnStUMJNxjTlzX8W4XRKZH9vDz9YdnzbexzPm94iYVM0OY9DbM2Dg8+J
+bFKjwji3kf+T+12E2t4KI1rRKZg46dHJwUEpZLD5ARNWm/g2S/SFF/9diB85wtLU3t6mrcotUrJwAwxo76dePvXSAhcSY1bJGD43e/EDDu
+E+9PhBXY4OHc0etJdclePqV5ovV9LQ9MRks2doE78hAwkrRWdCYfHqPG8k="
+    on_success: change
+    on_failure: always
+    on_start: never

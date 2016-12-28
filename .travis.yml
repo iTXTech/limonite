@@ -7,7 +7,6 @@ rust:
   - nightly
 env:
   global:
-    - RUSTFLAGS="-C prefer-dynamic"
 cache: cargo
 
 notifications:

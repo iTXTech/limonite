@@ -1,13 +1,13 @@
+use futures::future::{Future, join_all, ok};
+use std::collections::hash_map::HashMap;
+use std::convert::From;
 use std::error::Error;
 use std::fmt;
 use std::fs::File;
-use std::io::Read;
 use std::io;
-use std::convert::From;
-use std::collections::hash_map::HashMap;
-use toml::{Parser, Table, Value};
-use futures::future::{Future, join_all, ok};
+use std::io::Read;
 use tokio_core::reactor::Core;
+use toml::{Parser, Table, Value};
 
 pub struct ServerList {
     core: Core,

@@ -9,3 +9,6 @@ clap = "2.19"
 toml = "0.2"
 tokio-core = "0.1"
 futures = "0.1"
+
+[lib]
+crate-type = ["dylib"]

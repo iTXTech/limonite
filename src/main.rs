@@ -5,18 +5,17 @@ extern crate limonite;
 use limonite::server::ServerList;
 
 fn main() {
-    let file_exists = |path| {
-        if std::fs::metadata(path).is_ok() {
-            Ok(())
-        } else {
-            Err(String::from("File doesn't exist"))
-        }
+    let file_exists = |path| if std::fs::metadata(path).is_ok() {
+        Ok(())
+    } else {
+        Err(String::from("File doesn't exist"))
     };
 
-    let matches = clap_app!(limonite =>
-        (version: crate_version!())
-        (author: crate_authors!())
-        (about: "Minecraft and reverse proxy server")
+    // HACK: trigger rebuild on version change
+    include_str!("../Cargo.toml");
+
+    let matches = clap_app!(
+        @app (app_from_crate!())
         (@arg config: -c --config [conf] default_value("/etc/limonite.conf")
         {file_exists} "Sets a custom config file")
     )

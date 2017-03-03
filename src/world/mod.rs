@@ -7,7 +7,6 @@ mod detail {
     use std::collections::{BTreeMap, VecDeque};
     use std::io;
     use std::mem::swap;
-    use std::ops::DerefMut;
     use std::sync::{Arc, Mutex, Weak};
     use tokio_core::reactor::Handle;
     use world::backend::save::{SaveBackend, SaveBackendMaster};
@@ -61,7 +60,7 @@ mod detail {
                 })
             });
             let mut guard = mtx.lock().unwrap();
-            let container = guard.deref_mut();
+            let container = &mut *guard;
             match container.state {
                 ChunkState::Loaded(ref weak) => {
                     match weak.upgrade() {
